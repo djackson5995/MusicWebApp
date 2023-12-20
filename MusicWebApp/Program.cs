@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using MusicWebApp.Data;
+using MusicWebApp.Extensions;
 
 namespace MusicWebApp
 {
@@ -12,6 +13,7 @@ namespace MusicWebApp
 
             // Add services to the container.
 
+            builder.Services.ConfigureCors();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -27,6 +29,8 @@ namespace MusicWebApp
 
 
             var app = builder.Build();
+
+            app.UseCors("CorsPolicy");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

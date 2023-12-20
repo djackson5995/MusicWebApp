@@ -5,7 +5,7 @@
 namespace MusicWebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class updateSongModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

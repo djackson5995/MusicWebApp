@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicWebApp.Data;
 using MusicWebApp.Model;
+using Org.BouncyCastle.Security.Certificates;
 using System.Runtime.CompilerServices;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,22 +56,20 @@ namespace MusicWebApp.Controllers
 
         // PUT api/<PlaylistController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Song song)
+        public IActionResult Put(int id, [FromBody] Song updatedSong )
         {
-            if (song == null)
-            {
-                return NotFound();
-            }
-            var songs = _context.Songs;
-            if (songs == null)
-            {
-                return NotFound();
-            }
-            songs = songs;
+            var songs = _context.Songs.Find(id);
+            if (songs == null) return NotFound();
+            songs.Title = updatedSong.Title;
+            songs.Artist = updatedSong.Artist;
+            songs.Album = updatedSong.Album;
+            songs.ReleaseDate = updatedSong.ReleaseDate;
+            songs.Genre = updatedSong.Genre;
+
 
             _context.SaveChanges();
 
-            return StatusCode(200, song);
+            return StatusCode(200, songs);
 
 
 
@@ -85,6 +85,8 @@ namespace MusicWebApp.Controllers
         public IActionResult Delete(int id)
         {
             var song = _context.Songs.Find(id);
+
+            if (song == null) return NotFound();
             
                 _context.Songs.Remove(song);
                 _context.SaveChanges();

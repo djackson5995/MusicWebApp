@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.EntityFrameworkCore.Metadata;
 
 #nullable disable
@@ -6,7 +7,7 @@ using MySql.EntityFrameworkCore.Metadata;
 namespace MusicWebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class INIT : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,9 +22,10 @@ namespace MusicWebApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(type: "longtext", nullable: false),
-                    Genre = table.Column<string>(type: "longtext", nullable: false),
                     Artist = table.Column<string>(type: "longtext", nullable: false),
-                    yearReleased = table.Column<int>(type: "int", nullable: false)
+                    ReleaseDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Genre = table.Column<string>(type: "longtext", nullable: false),
+                    Album = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
